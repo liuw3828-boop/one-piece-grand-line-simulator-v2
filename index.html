@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<title>伟大航路模拟器 · Grand Line Simulator</title>
+<style>
+:root{--bg:#07111f;--panel:#0e1b2d;--panel2:#13253b;--line:#27415e;--text:#edf5ff;--muted:#8fa8c4;--gold:#ffd166;--red:#ff5c6c;--blue:#55b7ff;--green:#50d890;--shadow:0 16px 50px #0008}
+*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 50% -10%,#183a5f 0,#07111f 42%,#040914 100%);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100%}button{font:inherit;color:inherit} .app{max-width:1200px;margin:auto;padding:18px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#ffd166,#e9972c);display:grid;place-items:center;color:#07111f;font-size:26px;box-shadow:0 8px 25px #ffb52d44}.title{font-size:20px;font-weight:900;letter-spacing:.5px}.sub{font-size:12px;color:var(--muted)}.actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:#12243a;border-radius:11px;padding:9px 13px;cursor:pointer;transition:.18s}.btn:hover{transform:translateY(-1px);border-color:#4e78a2}.btn.primary{background:linear-gradient(135deg,#ffd166,#f0a72c);border:0;color:#101923;font-weight:800}.btn.danger{color:#ffabb3}.hero{background:linear-gradient(120deg,#0d2036,#102a43 55%,#0b1728);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"☠";position:absolute;right:25px;bottom:-40px;font-size:180px;color:#fff4;transform:rotate(-12deg)}.hero h1{margin:0 0 8px;font-size:32px}.hero p{margin:0;color:#abc0d8;max-width:680px;line-height:1.65}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.badge{font-size:12px;padding:6px 9px;border:1px solid #31516f;border-radius:999px;background:#0a1728;color:#bcd2e9}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}.panel{background:linear-gradient(180deg,#0e1b2d,#0b1727);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 10px 35px #0005}.panel h2{font-size:16px;margin:0 0 13px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{padding:11px;background:#091524;border:1px solid #203851;border-radius:12px}.stat small{color:var(--muted);display:block;font-size:11px}.stat b{font-size:18px;display:block;margin-top:4px}.bar{height:7px;border-radius:99px;background:#1a2b3f;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),#7de1ff)}
+.map{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;position:relative}.island{min-height:88px;border:1px solid #28445f;background:#0a1829;border-radius:14px;padding:10px;cursor:pointer;position:relative;z-index:1}.island:hover{border-color:#5d86ae}.island.locked{opacity:.42;filter:grayscale(.7);cursor:not-allowed}.island.active{border-color:var(--gold);box-shadow:0 0 0 1px #ffd16655,0 0 25px #ffd16618}.island .num{font-size:10px;color:var(--muted)}.island strong{display:block;margin:4px 0}.island span{font-size:11px;color:#9bb0c7}.route{height:3px;background:linear-gradient(90deg,#355b7d,#ffd166,#355b7d);opacity:.4;margin:-1px 4% 9px}
+.crew{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.char{border:1px solid #29455f;background:#091625;border-radius:14px;padding:12px;cursor:pointer}.char.selected{border-color:var(--gold);box-shadow:0 0 0 1px #ffd16655}.portrait{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#263f5a,#0e1d30);font-size:24px;margin-bottom:7px}.char b{font-size:14px}.char small{display:block;color:var(--muted);margin-top:3px}.tag{display:inline-block;font-size:10px;border-radius:999px;padding:3px 6px;background:#17304a;color:#9dc8ec;margin-top:7px}.battle{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}.fighter{padding:14px;background:#091625;border:1px solid #29455f;border-radius:14px}.fighter h3{margin:0 0 6px}.fighter .hp{height:10px;background:#291c28;border-radius:99px;overflow:hidden}.fighter .hp i{display:block;height:100%;background:linear-gradient(90deg,#ff5264,#ff8a6a)}.vs{font-weight:1000;color:var(--gold);font-size:20px}.log{height:205px;overflow:auto;background:#060e18;border:1px solid #1c3248;border-radius:12px;padding:10px;font-size:12px;line-height:1.7}.log div{padding:2px 0;border-bottom:1px solid #ffffff08}.good{color:var(--green)}.warn{color:var(--gold)}.bad{color:#ff8994}.muted{color:var(--muted)}.footer{margin-top:16px;text-align:center;color:#607a95;font-size:11px}.modal{position:fixed;inset:0;background:#02060ccc;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.open{display:flex}.modalbox{width:min(620px,100%);max-height:90vh;overflow:auto;background:#0d1b2d;border:1px solid #31506d;border-radius:20px;padding:20px;box-shadow:0 30px 90px #000b}.modalbox h2{margin-top:0}.choice{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid #27415e;border-radius:12px;margin:8px 0;background:#091625}.choice:hover{border-color:#5d86ae}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#132b43;border:1px solid #456985;padding:10px 15px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.map{grid-template-columns:repeat(2,1fr)}.crew{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:25px}.top{align-items:flex-start}.actions{flex-wrap:wrap;justify-content:flex-end}.battle{grid-template-columns:1fr}.vs{text-align:center}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">☠</div><div><div class="title">伟大航路模拟器</div><div class="sub">GRAND LINE · ADVENTURE SIMULATOR</div></div></div><div class="actions"><button class="btn" id="save">保存</button><button class="btn" id="reset">新航海</button></div></header>
+<section class="hero"><h1>驶向最终岛屿，成为海上王者</h1><p>招募伙伴、升级船只、探索岛屿、遭遇海军与海贼团。每一次航行都会改变你的资源与战力，做出属于你的伟大航路。</p><div class="badges"><span class="badge">⚓ 航海等级 <b id="lvBadge">1</b></span><span class="badge">💰 贝里 <b id="berryBadge">1200</b></span><span class="badge">⭐ 悬赏金 <b id="bountyBadge">0</b></span><span class="badge">📍 <b id="placeBadge">东海入口</b></span></div></section>
+<div class="grid">
+<main>
+<section class="panel"><h2>船长状态</h2><div class="stats"><div class="stat"><small>生命</small><b id="hpText">100 / 100</b><div class="bar"><i id="hpBar" style="width:100%"></i></div></div><div class="stat"><small>攻击</small><b id="atkText">18</b></div><div class="stat"><small>防御</small><b id="defText">12</b></div><div class="stat"><small>航海</small><b id="navText">10</b></div></div></section>
+<section class="panel"><h2>伟大航路航线</h2><div class="map" id="map"></div></section>
+<section class="panel"><h2>船员</h2><div class="crew" id="crew"></div></section>
+</main>
+<aside>
+<section class="panel"><h2>当前岛屿</h2><div id="islandInfo"></div></section>
+<section class="panel"><h2>遭遇战</h2><div id="battleArea"></div></section>
+<section class="panel"><h2>航海日志</h2><div class="log" id="log"></div></section>
+</aside>
+</div><div class="footer">Grand Line Simulator v2 · 本地存档自动保存于浏览器 · 纯前端可部署至 GitHub Pages</div>
+</div>
+<div class="modal" id="modal"><div class="modalbox"><h2 id="modalTitle">事件</h2><div id="modalBody"></div><button class="btn" id="modalClose">关闭</button></div></div><div class="toast" id="toast"></div>
+<script>
+const islands=[
+{name:'东海入口',icon:'🌊',level:1,desc:'踏入伟大航路的起点。',reward:180,event:'你在港口补充了物资，并听到了关于新世界的传闻。'},
+{name:'威士忌山峰',icon:'🏜️',level:2,desc:'赏金猎人遍布的小镇。',reward:320,event:'热情的欢迎背后藏着危险。你识破伏击，获得了情报。'},
+{name:'小花园',icon:'🌴',level:3,desc:'巨人战士与史前生物的岛屿。',reward:480,event:'你发现了稀有药材，船员生命上限提升。'},
+{name:'阿拉巴斯坦',icon:'🏛️',level:5,desc:'沙漠王国，战争的阴影正在逼近。',reward:850,event:'你帮助平民渡过危机，声望大幅提升。'},
+{name:'空岛',icon:'☁️',level:7,desc:'云海之上的神秘国度。',reward:1100,event:'贝壳科技让你的船只获得临时强化。'},
+{name:'水之七岛',icon:'🚂',level:9,desc:'世界顶级造船工匠的聚集地。',reward:1500,event:'工匠升级了你的船，防御永久提升。'},
+{name:'香波地群岛',icon:'🌳',level:12,desc:'进入新世界前的关键据点。',reward:2000,event:'你成功镀膜，解锁深海航线。'},
+{name:'鱼人岛',icon:'🐟',level:15,desc:'海底一万米的梦幻王国。',reward:2800,event:'海王类从身旁游过，你获得了珍贵的海底宝藏。'},
+{name:'和之国',icon:'⛩️',level:18,desc:'武士之国，强者云集。',reward:3800,event:'你在修行中领悟了新的战斗技巧。'},
+{name:'最终岛屿',icon:'🏴‍☠️',level:25,desc:'传说中的终点。真正的答案等待着你。',reward:10000,event:'你抵达最终岛屿。大海的秘密终于展现在眼前！'}
+];
+const chars=[
+{name:'路飞',icon:'👒',role:'船长',atk:26,def:12,hp:110,nav:8,skill:'橡胶机关枪'},
+{name:'索隆',icon:'⚔️',role:'剑士',atk:30,def:18,hp:105,nav:5,skill:'三刀流'},
+{name:'娜美',icon:'🍊',role:'航海士',atk:14,def:10,hp:90,nav:25,skill:'天候棒'},
+{name:'山治',icon:'🦵',role:'厨师',atk:24,def:17,hp:105,nav:9,skill:'恶魔风脚'},
+{name:'乌索普',icon:'🎯',role:'狙击手',atk:20,def:11,hp:95,nav:12,skill:'必杀·火炎星'},
+{name:'罗宾',icon:'🌸',role:'考古学家',atk:21,def:13,hp:95,nav:15,skill:'百花缭乱'}
+];
+const enemies=[['海贼猎人',18,10,70],['海军中校',24,16,95],['巴洛克工作社',29,18,120],['CP特工',36,22,145],['新世界海贼团',45,27,180],['霸气强者',55,34,230]];
+let state=JSON.parse(localStorage.getItem('grandLineV2')||'null')||{lv:1,xp:0,berry:1200,bounty:0,island:0,hp:100,maxHp:100,atk:18,def:12,nav:10,crew:['路飞'],selected:'路飞',visited:[0],battle:null,log:[]};
+function $(id){return document.getElementById(id)}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function addLog(t,cls=''){state.log.unshift('<div class="'+cls+'">'+new Date().toLocaleTimeString()+' · '+t+'</div>');state.log=state.log.slice(0,80);$('log').innerHTML=state.log.join('')}
+function save(){localStorage.setItem('grandLineV2',JSON.stringify(state));toast('航海日志已保存')}
+function calc(){const c=chars.find(x=>x.name===state.selected)||chars[0];state.atk=18+c.atk-26+(state.lv-1)*2;state.def=12+c.def-12+Math.floor((state.lv-1)*1.4);state.nav=10+c.nav-8+(state.lv-1);state.maxHp=100+c.hp-90+(state.lv-1)*8;if(state.hp>state.maxHp)state.hp=state.maxHp}
+function render(){calc();$('lvBadge').textContent=state.lv;$('berryBadge').textContent=state.berry;$('bountyBadge').textContent=state.bounty;$('placeBadge').textContent=islands[state.island].name;$('hpText').textContent=Math.max(0,state.hp)+' / '+state.maxHp;$('hpBar').style.width=Math.max(0,state.hp/state.maxHp*100)+'%';$('atkText').textContent=state.atk;$('defText').textContent=state.def;$('navText').textContent=state.nav;renderMap();renderCrew();renderIsland();renderBattle();$('log').innerHTML=state.log.join('')||'<div class="muted">暂无日志。点击岛屿开始航行。</div>'}
+function renderMap(){let h='';islands.forEach((x,i)=>{const locked=state.lv<x.level;h+=`<div class="island ${locked?'locked ':''}${i===state.island?'active':''}" onclick="travel(${i})"><div class="num">航线 ${String(i+1).padStart(2,'0')} · Lv.${x.level}</div><strong>${x.icon} ${x.name}</strong><span>${locked?'🔒 需要等级 '+x.level:x.desc}</span></div>`;if(i<islands.length-1)h+='';});$('map').innerHTML=h}
+function renderCrew(){let h='';chars.forEach(c=>{const owned=state.crew.includes(c.name);h+=`<div class="char ${state.selected===c.name?'selected':''}" onclick="selectCrew('${c.name}')"><div class="portrait">${c.icon}</div><b>${c.name}</b><small>${c.role} · 攻 ${c.atk}</small><span class="tag">${owned?'已加入':'点击招募 · 300 贝里'}</span></div>`});$('crew').innerHTML=h}
+function selectCrew(n){const c=chars.find(x=>x.name===n);if(!state.crew.includes(n)){if(state.berry<300)return toast('贝里不足，需要 300');state.berry-=300;state.crew.push(n);addLog('成功招募 '+n+' 加入船员队伍。','good')}state.selected=n;calc();render();save()}
+function travel(i){if(i===state.island)return;if(state.lv<islands[i].level)return toast('航海等级不足，无法前往');state.island=i;state.berry+=islands[i].reward;state.bounty+=Math.floor(islands[i].reward/5);addLog('抵达 '+islands[i].name+'，获得 '+islands[i].reward+' 贝里。','good');if(i===9){openEvent('最终岛屿',islands[i].event+'<br><br><b>你完成了伟大航路。</b>');}else openEvent(islands[i].name,islands[i].event);if(i>Math.max(...state.visited))state.visited.push(i);render();save()}
+function renderIsland(){$('islandInfo').innerHTML=`<div style="font-size:38px">${islands[state.island].icon}</div><h3 style="margin:7px 0">${islands[state.island].name}</h3><p class="muted">${islands[state.island].desc}</p><div class="choice"><span>推荐等级</span><b>Lv.${islands[state.island].level}</b></div><div class="choice"><span>探索奖励</span><b>💰 ${islands[state.island].reward}</b></div><button class="btn primary" style="width:100%;margin-top:8px" onclick="explore()">🔭 探索当前岛屿</button>`}
+function explore(){const roll=Math.random();if(roll<.55){state.berry+=80+state.lv*20;state.xp+=30;addLog('探索发现补给：获得贝里与经验。','good')}else if(roll<.82){startBattle()}else{state.hp=Math.min(state.maxHp,state.hp+25);addLog('找到恢复泉水：生命恢复 25。','good')}levelUp();render();save()}
+function levelUp(){while(state.xp>=state.lv*100){state.xp-=state.lv*100;state.lv++;state.bounty+=300;state.hp=state.maxHp;addLog('航海等级提升至 Lv.'+state.lv+'！','warn');toast('升级！Lv.'+state.lv)}}
+function startBattle(){const e=enemies[Math.min(enemies.length-1,Math.floor((state.lv-1)/4))];state.battle={name:e[0],atk:e[1]+Math.floor(state.lv*.8),def:e[2]+Math.floor(state.lv*.5),max:e[3]+state.lv*7,hp:e[3]+state.lv*7};addLog('遭遇 '+e[0]+'！战斗开始。','bad');renderBattle()}
+function renderBattle(){if(!state.battle){$('battleArea').innerHTML='<div class="muted">探索时有概率触发战斗。</div>';return}const e=state.battle;$('battleArea').innerHTML=`<div class="battle"><div class="fighter"><h3>🏴‍☠️ ${state.selected}</h3><div class="hp"><i style="width:${state.hp/state.maxHp*100}%"></i></div><small>${state.hp}/${state.maxHp}</small></div><div class="vs">VS</div><div class="fighter"><h3>⚔️ ${e.name}</h3><div class="hp"><i style="width:${e.hp/e.max*100}%"></i></div><small>${e.hp}/${e.max}</small></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn primary" onclick="attack()">⚡ 普通攻击</button><button class="btn" onclick="skill()">🔥 ${chars.find(c=>c.name===state.selected).skill}</button><button class="btn" onclick="flee()">🏃 撤退</button></div>`}
+function attack(mult=1){if(!state.battle)return;const e=state.battle;let dmg=Math.max(1,Math.floor(state.atk*mult-e.def*.45+Math.random()*8));e.hp-=dmg;addLog(state.selected+' 对 '+e.name+' 造成 '+dmg+' 点伤害。');if(e.hp<=0)return win();let ed=Math.max(1,Math.floor(e.atk-state.def*.5+Math.random()*6));state.hp-=ed;addLog(e.name+' 反击造成 '+ed+' 点伤害。','bad');if(state.hp<=0){state.hp=Math.max(1,Math.floor(state.maxHp*.35));state.berry=Math.max(0,state.berry-150);state.battle=null;addLog('你被击退，损失 150 贝里并撤回。','bad');toast('战斗失败');}render();save()}
+function skill(){attack(1.55)}
+function win(){const e=state.battle;const reward=100+state.lv*60;state.berry+=reward;state.xp+=70+state.lv*15;state.bounty+=Math.floor(reward/2);state.battle=null;addLog('击败 '+e.name+'！获得 '+reward+' 贝里与经验。','good');toast('胜利！');levelUp();render();save()}
+function flee(){state.battle=null;addLog('你选择暂时撤退。','warn');render();save()}
+function openEvent(title,body){$('modalTitle').textContent=title;$('modalBody').innerHTML='<p style="line-height:1.8;color:#b9cce0">'+body+'</p>';$('modal').classList.add('open')}
+$('modalClose').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};$('save').onclick=save;$('reset').onclick=()=>{if(confirm('确定开始新的航海吗？当前存档会被覆盖。')){localStorage.removeItem('grandLineV2');location.reload()}};
+addLog('欢迎来到伟大航路。你的冒险现在开始。','good');render();
+</script>
+</body></html>
